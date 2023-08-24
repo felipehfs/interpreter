@@ -67,6 +67,7 @@ func TestNextTok(t *testing.T) {
 	"foobar"
 
 	"foo bar"
+	[1, 2];
 	`
 	tests := []struct {
 		expectedType    token.TokenType
@@ -146,6 +147,12 @@ func TestNextTok(t *testing.T) {
 		{token.SEMICOLON, ";"},
 		{token.STRING, "foobar"},
 		{token.STRING, "foo bar"},
+		{token.LBRACKET, "["},
+		{token.INT, "1"},
+		{token.COMMA, ","},
+		{token.INT, "2"},
+		{token.RBRACKET, "]"},
+		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}
 
@@ -159,7 +166,7 @@ func TestNextTok(t *testing.T) {
 		}
 
 		if tok.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] - literal wrong, expected = %q, got = %q", i, tt.expectedType, tok.Type)
+			t.Fatalf("tests[%d] - literal wrong, expected = %q, got = %q", i, tt.expectedLiteral, tok.Literal)
 		}
 	}
 }
